@@ -37,15 +37,37 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
                 .setClientLogin(brokerRelayUser)
                 .setClientPasscode(brokerRelayPass)
                 .setSystemLogin(brokerRelayUser)
-                .setSystemPasscode(brokerRelayPass);
+                .setSystemPasscode(brokerRelayPass)
+                .setUserDestinationBroadcast("/topic/unresolved-user")
+                .setUserRegistryBroadcast("/topic/log-user-registry");
         config.setApplicationDestinationPrefixes("/app");
     }
 
-//    @Override
-//    public boolean configureMessageConverters(List<MessageConverter> messageConverters){
-//        messageConverters.add(new MappingJackson2MessageConverter());
-//        return true;
-//    }
+    @Override
+    public void configureClientInboundChannel(ChannelRegistration registration) {
+        registration.setInterceptors(new ChannelInterceptorAdapter() {
+
+            @Override
+            public Message<?> preSend(Message<?> message, MessageChannel channel) {
+
+                StompHeaderAccessor accessor =
+                        MessageHeaderAccessor.getAccessor(message, StompHeaderAccessor.class);
+
+                if (StompCommand.CONNECT.equals(accessor.getCommand())) {
+                    // THIS is where authentication comes in. For now i've added a dummy principal.
+                    Principal user = new Principal() {
+                        @Override
+                        public String getName() {
+                            return "user";
+                        }
+                    } ; // access authentication header(s)
+                    accessor.setUser(user);
+                }
+
+                return message;
+            }
+        });
+    }
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
