@@ -1,0 +1,45 @@
+version: '3'
+
+services:
+  eureka-server:
+    build: ./eureka
+    image: pmitseas/eureka:1
+    ports:
+      - "8761:8761"
+  gateway-server:
+    build: ./gateway-server
+    image: pmitseas/gateway:1
+    ports:
+      - "8000:8000"
+    environment:
+      - EUREKA_HOST=eureka-server
+      - EUREKA_PORT=8761
+    depends_on:
+      - eureka-server
+  chat-app:
+    build: ./chatapp
+    image: pmitseas/chat-app:1
+    environment:
+      - ACTIVEMQ_HOST=activemq
+      - EUREKA_HOST=eureka-server
+      - EUREKA_PORT=8761
+  chat-client:
+    build: ./chatclient
+    image: pmitseas/chat-client:1
+    environment:
+      - ACTIVEMQ_HOST=activemq
+      - EUREKA_HOST=eureka-server
+      - EUREKA_PORT=8761
+      - GATEWAY_HOST=gateway-server
+      - CHATAPP_DOMAIN=chatapp
+
+  activemq:
+    image: vromero/activemq-artemis
+    environment:
+      - ARTEMIS_USERNAME=admin
+      - ARTEMIS_PASSWORD=admin
+      - BROKER_CONFIG_CONNECTION_TTL=-1
+    ports:
+      - "61616:61616"
+      - "61613:61613"
+      - "8161:8161"

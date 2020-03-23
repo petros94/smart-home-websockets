@@ -1,0 +1,20 @@
+server:
+  port: 8001
+
+spring:
+  application:
+    name: chatclient
+
+chatapp:
+  server:
+    host: ws://${gateway.host:localhost}:8000/${chatapp.domain:}/websocket
+
+eureka:
+  client:
+    healthcheck:
+      enabled: false
+    serviceUrl:
+      defaultZone: http://${eureka.host:127.0.0.1}:${eureka.port:8761}/eureka/
+  instance:
+    preferIpAddress: true
+#    ipAddress: 127.0.0.1

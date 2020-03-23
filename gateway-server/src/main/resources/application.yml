@@ -1,0 +1,41 @@
+eureka:
+  client:
+    healthcheck:
+      enabled: false
+    serviceUrl:
+      defaultZone: http://${eureka.host:127.0.0.1}:${eureka.port:8761}/eureka/
+  instance:
+    preferIpAddress: true
+#    ipAddress: 127.0.0.1
+
+server:
+  port: 8000
+
+spring:
+  application:
+    name: gateway-server
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: chatapp
+          uri: lb://chatapp
+          predicates:
+            - Path=/chatapp/**
+          filters:
+            - StripPrefix=1
+        - id: chatclient
+          uri: lb://chatclient
+          predicates:
+            - Path=/chatclient/**
+          filters:
+            - StripPrefix=1
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: ["*"]
+            allowedMethods: ["*"]
+            allowedHeaders: "*"
+            allowCredentials: true
