@@ -58,7 +58,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
                     Principal user = new Principal() {
                         @Override
                         public String getName() {
-                            return "user";
+                            return "192.168.5.143";
                         }
                     } ; // access authentication header(s)
                     accessor.setUser(user);
