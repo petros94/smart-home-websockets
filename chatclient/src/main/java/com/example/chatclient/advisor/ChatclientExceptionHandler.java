@@ -17,6 +17,6 @@ public class ChatclientExceptionHandler {
     @ExceptionHandler(ConnectionLostException.class)
     public void handleConnectionLost(ConnectionLostException ex) {
         log.info("Lost connection to server. Retrying...", ex);
-        webSocketService.initSession();
+        webSocketService.initSession("someone", "pass");
     }
 }

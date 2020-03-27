@@ -10,6 +10,7 @@ import org.springframework.messaging.simp.stomp.*;
 import org.springframework.retry.annotation.Backoff;
 import org.springframework.retry.annotation.Retryable;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
+import org.springframework.web.socket.WebSocketHttpHeaders;
 import org.springframework.web.socket.client.WebSocketClient;
 import org.springframework.web.socket.client.standard.StandardWebSocketClient;
 import org.springframework.web.socket.messaging.WebSocketStompClient;
@@ -18,8 +19,8 @@ import org.springframework.web.socket.sockjs.client.Transport;
 import org.springframework.web.socket.sockjs.client.WebSocketTransport;
 
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 @Configuration
 @Slf4j
@@ -29,8 +30,14 @@ public class WebSocketConfig {
     @Retryable(value = {Exception.class},
             maxAttempts = 10,
             backoff = @Backoff(delay=10000))
-    public StompSession initSession() throws Exception {
-        return stompClient().connect(serverURL, sessionHandler).get();
+    public StompSession initSession(String username, String password) throws Exception {
+        String plainCredentials = username + ":" + password;
+        String base64Credentials = Base64.getEncoder().encodeToString(plainCredentials.getBytes());
+
+        final WebSocketHttpHeaders headers = new WebSocketHttpHeaders();
+        headers.add("Authorization", "Basic " + base64Credentials);
+
+        return stompClient().connect(serverURL, headers, sessionHandler).get();
     }
 
     @Value("${chatapp.server.host}")

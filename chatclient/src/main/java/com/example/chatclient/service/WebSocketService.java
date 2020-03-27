@@ -6,9 +6,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.messaging.simp.stomp.StompSession;
 import org.springframework.stereotype.Service;
 
-import java.util.concurrent.atomic.AtomicBoolean;
-
-
 @Service
 @Slf4j
 @Getter
@@ -19,13 +16,13 @@ public class WebSocketService {
 
     public WebSocketService(WebSocketConfig webSocketConfig) {
         this.webSocketConfig = webSocketConfig;
-        this.initSession();
+        this.initSession("someone", "pass");
     }
 
-    public void initSession() {
+    public void initSession(String username, String password) {
         log.info("Initializing websocket session");
         try {
-            this.stompSession = this.webSocketConfig.initSession();
+            this.stompSession = this.webSocketConfig.initSession(username, password);
         } catch (Exception e) {
             log.info("Create stomp session failed ", e);
             this.stompSession = null;
