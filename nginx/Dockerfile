@@ -1,2 +1,3 @@
 FROM nginx
-COPY nginx.conf /etc/nginx/nginx.conf
+COPY example.crt /etc/asterisk/certs/example.crt
+COPY example.key /etc/asterisk/certs/example.key
