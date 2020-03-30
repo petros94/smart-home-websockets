@@ -29,7 +29,7 @@ public class WebSocketConfig {
 
     @Retryable(value = {Exception.class},
             maxAttempts = 10,
-            backoff = @Backoff(delay=10000))
+            backoff = @Backoff(delay=1000, multiplier = 2, random = true))
     public StompSession initSession(String username, String password) throws Exception {
         String plainCredentials = username + ":" + password;
         String base64Credentials = Base64.getEncoder().encodeToString(plainCredentials.getBytes());
