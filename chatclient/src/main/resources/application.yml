@@ -7,7 +7,7 @@ spring:
 
 chatapp:
   server:
-    host: wss://${nginx.host:localhost}/${chatapp.domain:chatapp}/websocket
+    host: wss://localhost/chatapp/websocket
 
 eureka:
   client:

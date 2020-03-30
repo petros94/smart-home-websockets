@@ -4,6 +4,7 @@ import com.example.chatclient.model.Message;
 import com.example.chatclient.service.WebSocketService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.messaging.simp.stomp.*;
 import org.springframework.stereotype.Component;
 
@@ -22,6 +23,7 @@ public class StompSessionHandlerImpl implements StompSessionHandler {
     }
 
     @Autowired
+    @Lazy
     public void setWebSocketService(WebSocketService webSocketService) {
         this.webSocketService = webSocketService;
     }

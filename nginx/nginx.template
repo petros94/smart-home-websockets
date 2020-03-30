@@ -1,7 +1,7 @@
 server {
     listen 443 ssl;
+    listen 8080;
 
-    ssl on;
     ssl_certificate /etc/asterisk/certs/example.crt;
     ssl_certificate_key /etc/asterisk/certs/example.key;
 
