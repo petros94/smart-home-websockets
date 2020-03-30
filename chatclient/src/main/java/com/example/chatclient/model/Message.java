@@ -3,7 +3,6 @@ package com.example.chatclient.model;
 import lombok.*;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @NoArgsConstructor

@@ -27,11 +27,10 @@ public class StompSessionHandlerImpl implements StompSessionHandler {
     }
 
     @Override
-    public void afterConnected(
-            StompSession session, StompHeaders connectedHeaders) {
-            this.isConnected.set(true);
-            session.subscribe("/topic/messages/outgoing", this);
-            session.subscribe("/user/queue/payment", this);
+    public void afterConnected(StompSession session, StompHeaders connectedHeaders) {
+        this.isConnected.set(true);
+        session.subscribe("/topic/messages/outgoing", this);
+        session.subscribe("/user/queue/payment", this);
     }
 
     @Override
@@ -43,9 +42,8 @@ public class StompSessionHandlerImpl implements StompSessionHandler {
     public void handleTransportError(StompSession session, Throwable exception) {
         if (this.isConnected.get()) {
             this.isConnected.set(false);
-            webSocketService.initSession();
+            webSocketService.initSession("someone", "pass");
         }
-
     }
 
     @Override
@@ -55,6 +53,7 @@ public class StompSessionHandlerImpl implements StompSessionHandler {
 
     @Override
     public void handleFrame(StompHeaders headers, Object payload) {
+        if (payload == null) return;
         Message msg = (Message) payload;
         log.info("Received : " + msg.getContent()+ " from : " + msg.getFrom());
     }

@@ -1,9 +1,8 @@
-package com.example.chatclient.model;
+package com.example.chatapp.model;
 
 import lombok.*;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @NoArgsConstructor
