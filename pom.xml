@@ -8,8 +8,8 @@
         <version>2.2.5.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.example</groupId>
-    <artifactId>chat</artifactId>
+    <groupId>com.pmitseas</groupId>
+    <artifactId>smarthome</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
@@ -21,7 +21,7 @@
 
 
     <modules>
-        <module>chatapp</module>
+        <module>device-management-ms</module>
         <module>chatclient</module>
         <module>eureka</module>
         <module>gateway-server</module>

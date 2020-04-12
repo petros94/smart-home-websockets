@@ -1,3 +1,6 @@
+server:
+  port: 8000
+
 eureka:
   client:
     healthcheck:
@@ -6,10 +9,6 @@ eureka:
       defaultZone: http://${eureka.host:127.0.0.1}:${eureka.port:8761}/eureka/
   instance:
     preferIpAddress: true
-#    ipAddress: 127.0.0.1
-
-server:
-  port: 8000
 
 spring:
   application:
@@ -20,16 +19,16 @@ spring:
         locator:
           enabled: true
       routes:
-        - id: chatapp
-          uri: lb://chatapp
+        - id: device-management-ms
+          uri: lb://device-management-service
           predicates:
-            - Path=/chatapp/**
+            - Path=/device-management-service/**
           filters:
             - StripPrefix=1
-        - id: chatclient
-          uri: lb://chatclient
+        - id: control-ms
+          uri: lb://control-service
           predicates:
-            - Path=/chatclient/**
+            - Path=/control-service/**
           filters:
             - StripPrefix=1
       globalcors:
