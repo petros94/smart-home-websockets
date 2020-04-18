@@ -8,8 +8,8 @@
 	<packaging>jar</packaging>
 
 	<parent>
-		<groupId>com.example</groupId>
-		<artifactId>chat</artifactId>
+		<groupId>com.pmitseas</groupId>
+		<artifactId>smarthome</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 

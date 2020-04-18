@@ -36,12 +36,12 @@ public class DeviceMgmtServiceImpl implements DeviceMgmtService {
          * Create a dummy message to send to client
          */
         CommandMessage message = CommandMessage.builder()
-                .time(LocalDateTime.now())
+                .time(LocalDateTime.now().toString())
                 .command(CommandEnum.ACTIVATE.toString())
                 .build();
 
         log.info("Sending message to device: {}", client);
-        simpMessagingTemplate.convertAndSendToUser(client, "/queue/clients", message, headerAccessor.getMessageHeaders());
+        simpMessagingTemplate.convertAndSendToUser(client, "/queue/device", message, headerAccessor.getMessageHeaders());
     }
 
 

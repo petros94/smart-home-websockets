@@ -1,6 +1,9 @@
 version: '3'
 
 services:
+  device-client:
+    build: ./device-client
+    image: pmitseas/smarthome/device-client:1
   eureka-server:
     build: ./eureka
     image: pmitseas/eureka:1
@@ -14,9 +17,18 @@ services:
       - EUREKA_PORT=8761
     depends_on:
       - eureka-server
-  chat-app:
-    build: ./chatapp
-    image: pmitseas/chat-app:1
+    ports:
+      - "8000:8000"
+  device-management-ms:
+    build: ./device-management-ms
+    image: pmitseas/smarthome/device_management_ms:1
+    environment:
+      - ACTIVEMQ_HOST=activemq
+      - EUREKA_HOST=eureka-server
+      - EUREKA_PORT=8761
+  control-ms:
+    build: ./control-ms
+    image: pmitseas/smarthome/control-ms
     environment:
       - ACTIVEMQ_HOST=activemq
       - EUREKA_HOST=eureka-server

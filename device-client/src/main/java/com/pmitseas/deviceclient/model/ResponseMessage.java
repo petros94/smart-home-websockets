@@ -1,9 +1,8 @@
-package com.pmitseas.devicemgmt.model;
+package com.pmitseas.deviceclient.model;
 
 import lombok.*;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @NoArgsConstructor

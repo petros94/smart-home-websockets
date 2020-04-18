@@ -22,7 +22,8 @@
 
     <modules>
         <module>device-management-ms</module>
-        <module>chatclient</module>
+        <module>control-ms</module>
+        <module>device-client</module>
         <module>eureka</module>
         <module>gateway-server</module>
     </modules>
