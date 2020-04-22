@@ -2,5 +2,3 @@
 **/*.patch
 **/target/
 /.idea
-/nginx
-/test_reports
