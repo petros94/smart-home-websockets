@@ -8,6 +8,11 @@ In our scenario, all the smart devices have a persistent connection to a server.
 
 Each microservice (MS) is written in Java 13, using the Spring Boot framework. The communication with the clients is handled by the Device Management MS. The Control MS exposes the REST API, and communicates with the Device Mgmt MS using an Active MQ Artemis message broker. For incoming traffic routing, service discovery and load balancing we are using Spring Cloud Gateway and Eureka.
 
+## Prerequisites
+
+* Java 11
+* Docker
+
 ## How to install
 
 From root directory type:
@@ -24,4 +29,18 @@ To dun with docker, after creating the images, navigate to root directory and ty
 
 > docker-compose up
 
-Then you can send POST requests to http://localhost:8000/control-service/device 
+This will bring up the server and one client 
+
+## How to test
+
+You can send POST requests to http://localhost:8000/control-service/device 
+
+```
+curl --location --request POST 'http://localhost:8000/control-service/device' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+     "destination": "some_device"
+}'
+```
+
+Then you can monitor the device client / cdm service logs to see the transmitted messages
