@@ -34,6 +34,8 @@ This will bring up the server and one client
 
 ## How to test
 
+Monitor the services discovered by Eureka by visiting: http://localhost:8761
+The ActiveMQ artemis comes with a management page running at: http://localhost:8161
 You can send POST requests to http://localhost:8000/control-service/device 
 
 ```
