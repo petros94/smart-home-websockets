@@ -1,4 +1,4 @@
-package com.example.eureka;
+package com.pmitseas.eureka;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
