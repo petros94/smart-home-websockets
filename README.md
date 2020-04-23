@@ -42,7 +42,10 @@ This will bring up the server and one client
 curl --location --request POST 'http://localhost:8000/control-service/device' \
 --header 'Content-Type: application/json' \
 --data-raw '{
-     "destination": "some_device"
+	"destination": "lights_living_room",
+	"command": "turn_on",
+	"args": {
+	}
 }'
 ```
 
