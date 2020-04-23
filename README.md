@@ -52,4 +52,4 @@ curl --location --request POST 'http://localhost:8000/control-service/device' \
 Then you can monitor the device-client / device-management service logs to see the transmitted messages
 
 ## Contact details
-Feel free to contact us for any questions or suggestions at: kmandalas@gmail.com, petros_94@icloud.com
+Feel free to contact us for any questions or suggestions at: kmandalas@gmail.com or submit a github issue.
