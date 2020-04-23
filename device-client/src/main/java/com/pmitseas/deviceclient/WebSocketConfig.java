@@ -51,8 +51,7 @@ public class WebSocketConfig {
     @Bean
     public WebSocketStompClient stompClient() {
         WebSocketClient simpleWebSocketClient = new StandardWebSocketClient();
-        List<Transport> transports = new ArrayList<>(1);
-        transports.add(new WebSocketTransport(simpleWebSocketClient));
+        List<Transport> transports = List.of(new WebSocketTransport(simpleWebSocketClient));
         SockJsClient sockJsClient = new SockJsClient(transports);
         WebSocketStompClient stompClient = new WebSocketStompClient(sockJsClient);
         stompClient.setMessageConverter(new MappingJackson2MessageConverter());
