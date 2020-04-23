@@ -1,8 +1,6 @@
 package com.pmitseas.devicemgmt.service;
 
-import com.pmitseas.devicemgmt.event.AMQMessagingService;
 import com.pmitseas.devicemgmt.event.ActionEvent;
-import com.pmitseas.devicemgmt.model.CommandEnum;
 import com.pmitseas.devicemgmt.model.CommandMessage;
 import com.pmitseas.devicemgmt.model.ResponseMessage;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +21,7 @@ public class DeviceMgmtServiceImpl implements DeviceMgmtService {
     @Override
     public void handleMessageFromDevice(ResponseMessage message){
         //Custom logic here
+        log.info("Message Contents: {}", message.toString());
     }
 
     @Override
@@ -37,7 +36,8 @@ public class DeviceMgmtServiceImpl implements DeviceMgmtService {
          */
         CommandMessage message = CommandMessage.builder()
                 .time(LocalDateTime.now().toString())
-                .command(CommandEnum.ACTIVATE.toString())
+                .command(event.getCommand())
+                .args(event.getArgs())
                 .build();
 
         log.info("Sending message to device: {}", client);

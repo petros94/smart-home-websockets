@@ -20,7 +20,7 @@ public class WebSocketService {
 
     public WebSocketService(WebSocketConfig webSocketConfig) {
         this.webSocketConfig = webSocketConfig;
-        this.initSession("some_device", "some_password");
+        this.initSession("lights_living_room", "password");
     }
 
     public void initSession(String username, String password) {

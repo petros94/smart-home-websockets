@@ -4,6 +4,8 @@ services:
   device-client:
     build: ./device-client
     image: pmitseas/smarthome/device-client:1
+    environment:
+      - WS_HOST=gateway-server
   eureka-server:
     build: ./eureka
     image: pmitseas/eureka:1

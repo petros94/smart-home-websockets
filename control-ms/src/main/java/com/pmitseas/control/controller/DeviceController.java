@@ -22,12 +22,14 @@ public class DeviceController {
 	private final AMQMessagingService messagingService;
 
 	@PostMapping
-	public ResponseEntity ping(@RequestBody ActionDTO actionDTO) {
-		log.info("Pinging device");
+	public ResponseEntity sendCommandToDevice(@RequestBody ActionDTO actionDTO) {
+		log.info("Received POST request with body: {}", actionDTO.toString());
 
 		/* Create Action event*/
 		ActionEvent event = ActionEvent.builder()
 				.destination(actionDTO.getDestination())
+				.command(actionDTO.getCommand())
+				.args(actionDTO.getArgs())
 				.id(UUID.randomUUID())
 				.build();
 

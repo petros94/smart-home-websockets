@@ -44,7 +44,7 @@ public class StompSessionHandlerImpl implements StompSessionHandler {
     public void handleTransportError(StompSession session, Throwable exception) {
         if (this.isConnected.get()) {
             this.isConnected.set(false);
-            webSocketService.initSession("some_device", "some_pass");
+            webSocketService.initSession("lights_living_room", "password");
         }
     }
 

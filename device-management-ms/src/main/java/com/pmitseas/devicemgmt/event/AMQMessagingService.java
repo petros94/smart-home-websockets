@@ -15,7 +15,7 @@ public class AMQMessagingService {
 
     @JmsListener(destination = "${broker.queue}")
     public void receiveMessage(ActionEvent message) {
-        log.info("Received event from Control MS");
+        log.info("Received event from Control MS: {}", message.toString());
         deviceMgmtService.sendMessageToDevice(message);
     }
 

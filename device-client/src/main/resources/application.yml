@@ -7,4 +7,4 @@ spring:
 
 ws:
   server:
-    host: ws://${server.host:localhost}:${server.port:8000}/device-management-service/websocket
+    host: ws://${ws.host:localhost}:${ws.port:8000}/device-management-service/websocket
