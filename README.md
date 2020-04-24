@@ -7,7 +7,7 @@ In our scenario, all the smart devices have a persistent connection to a server.
 
 ![Image of Microservices](/screenshots/websockets-2.png)
 
-Each microservice (MS) is written in Java 13, using the Spring Boot framework. The communication with the clients is handled by the Device Management MS. The Control MS exposes the REST API, and communicates with the Device Mgmt MS using an Active MQ Artemis message broker. For incoming traffic routing, service discovery and load balancing we are using Spring Cloud Gateway and Eureka.
+Each microservice (MS) is written in Java 11, using the Spring Boot framework. The communication with the clients is handled by the Device Management MS. The Control MS exposes the REST API, and communicates with the Device Mgmt MS using an Active MQ Artemis message broker. For incoming traffic routing, service discovery and load balancing we are using Spring Cloud Gateway and Eureka.
 
 ## Prerequisites
 
