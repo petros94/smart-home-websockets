@@ -11,7 +11,7 @@ Each microservice (MS) is written in Java 11, using the Spring Boot framework. T
 
 ## Prerequisites
 
-* Java 11
+* Java 11 or above
 * Docker
 
 ## How to install
