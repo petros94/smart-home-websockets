@@ -40,11 +40,19 @@ public class WebSocketConfig {
         final WebSocketHttpHeaders headers = new WebSocketHttpHeaders();
         headers.add("Authorization", "Basic " + base64Credentials);
 
-        return stompClient().connect(serverURL, headers, sessionHandler).get();
+        return enableSSL ?
+                stompClient().connect(secureServerURL, headers, sessionHandler).get() :
+                stompClient().connect(serverURL, headers, sessionHandler).get();
     }
 
     @Value("${ws.server.host}")
     private String serverURL;
+
+    @Value("${ws.server.secureHost}")
+    private String secureServerURL;
+
+    @Value("${ws.server.enableSSL}")
+    private boolean enableSSL;
 
     private final StompSessionHandler sessionHandler;
 

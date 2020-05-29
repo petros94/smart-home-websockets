@@ -51,6 +51,7 @@ public class ArtemisConfig {
 		converter.setTargetType(MessageType.TEXT);
 		HashMap<String, Class<?>> typeIdMappings = new HashMap<>();
 		typeIdMappings.put(ActionEvent.class.getSimpleName(), ActionEvent.class);
+		typeIdMappings.put(ActionResultEvent.class.getSimpleName(), ActionResultEvent.class);
 		converter.setTypeIdMappings(typeIdMappings);
 		converter.setTypeIdPropertyName("_type");
 		return converter;
@@ -59,6 +60,14 @@ public class ArtemisConfig {
 	@Bean
 	public CachingConnectionFactory cachingConnectionFactory() {
 		return new CachingConnectionFactory(receiverActiveMQConnectionFactory());
+	}
+
+	@Bean("jmsTopicTemplate")
+	public JmsTemplate jmsTopicTemplate() {
+		JmsTemplate jmsTemplate = new JmsTemplate(cachingConnectionFactory());
+		jmsTemplate.setMessageConverter(jacksonJmsMessageConverter());
+		jmsTemplate.setPubSubDomain(true);
+		return jmsTemplate;
 	}
 }
 
