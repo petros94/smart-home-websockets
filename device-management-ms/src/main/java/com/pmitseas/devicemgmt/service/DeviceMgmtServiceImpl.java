@@ -16,33 +16,32 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 @Slf4j
 public class DeviceMgmtServiceImpl implements DeviceMgmtService {
-    private final SimpMessagingTemplate simpMessagingTemplate;
 
-    @Override
-    public void handleMessageFromDevice(ResponseMessage message){
-        //Custom logic here
-        log.info("Message Contents: {}", message.toString());
-    }
+	private final SimpMessagingTemplate simpMessagingTemplate;
 
-    @Override
-    public void sendMessageToDevice(ActionEvent event) {
-        SimpMessageHeaderAccessor headerAccessor = SimpMessageHeaderAccessor.create(SimpMessageType.MESSAGE);
-        headerAccessor.setLeaveMutable(true);
+	@Override
+	public void handleMessageFromDevice(ResponseMessage message) {
+		// Custom logic here
+		log.info("Message Contents: {}", message.toString());
+	}
 
-        String client = event.getDestination();
+	@Override
+	public void sendMessageToDevice(ActionEvent event) {
+		SimpMessageHeaderAccessor headerAccessor = SimpMessageHeaderAccessor.create(SimpMessageType.MESSAGE);
+		headerAccessor.setLeaveMutable(true);
 
-        /*
-         * Create a dummy message to send to client
-         */
-        CommandMessage message = CommandMessage.builder()
-                .time(LocalDateTime.now().toString())
-                .command(event.getCommand())
-                .args(event.getArgs())
-                .build();
+		String client = event.getDestination();
+		/*
+		 * Create a dummy message to send to client
+		 */
+		CommandMessage message = CommandMessage.builder()
+				.time(LocalDateTime.now().toString())
+				.command(event.getCommand())
+				.args(event.getArgs())
+				.build();
 
-        log.info("Sending message to device: {}", client);
-        simpMessagingTemplate.convertAndSendToUser(client, "/queue/device", message, headerAccessor.getMessageHeaders());
-    }
-
+		log.info("Sending message to device: {}", client);
+		simpMessagingTemplate.convertAndSendToUser(client, "/queue/device", message, headerAccessor.getMessageHeaders());
+	}
 
 }

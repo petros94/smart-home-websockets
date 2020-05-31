@@ -7,7 +7,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.jms.annotation.EnableJms;
 import org.springframework.jms.config.DefaultJmsListenerContainerFactory;
 import org.springframework.jms.connection.CachingConnectionFactory;
-import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.support.converter.MappingJackson2MessageConverter;
 import org.springframework.jms.support.converter.MessageConverter;
 import org.springframework.jms.support.converter.MessageType;
@@ -33,6 +32,7 @@ public class ArtemisConfig {
 		connectionFactory.setUser(username);
 		connectionFactory.setPassword(password);
 		connectionFactory.setConnectionTTL(120000L);
+
 		return connectionFactory;
 	}
 
@@ -41,7 +41,9 @@ public class ArtemisConfig {
 		DefaultJmsListenerContainerFactory factory = new DefaultJmsListenerContainerFactory();
 		factory.setConnectionFactory(receiverActiveMQConnectionFactory());
 		factory.setMessageConverter(jacksonJmsMessageConverter());
+
 		factory.setConcurrency("3-10");
+
 		return factory;
 	}
 
@@ -53,6 +55,7 @@ public class ArtemisConfig {
 		typeIdMappings.put(ActionEvent.class.getSimpleName(), ActionEvent.class);
 		converter.setTypeIdMappings(typeIdMappings);
 		converter.setTypeIdPropertyName("_type");
+
 		return converter;
 	}
 

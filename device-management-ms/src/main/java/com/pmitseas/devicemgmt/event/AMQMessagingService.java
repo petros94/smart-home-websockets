@@ -11,12 +11,12 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class AMQMessagingService {
-    private final DeviceMgmtService deviceMgmtService;
+	private final DeviceMgmtService deviceMgmtService;
 
-    @JmsListener(destination = "${broker.queue}")
-    public void receiveMessage(ActionEvent message) {
-        log.info("Received event from Control MS: {}", message.toString());
-        deviceMgmtService.sendMessageToDevice(message);
-    }
+	@JmsListener(destination = "${broker.queue}")
+	public void receiveMessage(ActionEvent message) {
+		log.info("Received event from Control MS: {}", message.toString());
+		deviceMgmtService.sendMessageToDevice(message);
+	}
 
 }

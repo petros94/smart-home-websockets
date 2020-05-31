@@ -26,11 +26,12 @@ public class ArtemisConfig {
 	private String password;
 
 	@Bean
-	public ActiveMQConnectionFactory senderActiveMQConnectionFactory(){
-		ActiveMQConnectionFactory connectionFactory =  new ActiveMQConnectionFactory(brokerUrl);
+	public ActiveMQConnectionFactory senderActiveMQConnectionFactory() {
+		ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory(brokerUrl);
 		connectionFactory.setUser(username);
 		connectionFactory.setPassword(password);
 		connectionFactory.setConnectionTTL(120000L);
+
 		return connectionFactory;
 	}
 
@@ -42,18 +43,20 @@ public class ArtemisConfig {
 		typeIdMappings.put(ActionEvent.class.getSimpleName(), ActionEvent.class);
 		converter.setTypeIdMappings(typeIdMappings);
 		converter.setTypeIdPropertyName("_type");
+
 		return converter;
 	}
 
 	@Bean
-	public CachingConnectionFactory cachingConnectionFactory(){
+	public CachingConnectionFactory cachingConnectionFactory() {
 		return new CachingConnectionFactory(senderActiveMQConnectionFactory());
 	}
 
 	@Bean("jmsTemplate")
-	public JmsTemplate jmsTemplate(){
+	public JmsTemplate jmsTemplate() {
 		JmsTemplate jmsTemplate = new JmsTemplate(cachingConnectionFactory());
 		jmsTemplate.setMessageConverter(jacksonJmsMessageConverter());
+
 		return jmsTemplate;
 	}
 }

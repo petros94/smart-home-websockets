@@ -22,7 +22,7 @@ public class DeviceController {
 	private final AMQMessagingService messagingService;
 
 	@PostMapping
-	public ResponseEntity sendCommandToDevice(@RequestBody ActionDTO actionDTO) {
+	public ResponseEntity<Void> sendCommandToDevice(@RequestBody ActionDTO actionDTO) {
 		log.info("Received POST request with body: {}", actionDTO.toString());
 
 		/* Create Action event*/
@@ -36,4 +36,5 @@ public class DeviceController {
 		messagingService.send(event);
 		return ResponseEntity.ok().build();
 	}
+
 }
