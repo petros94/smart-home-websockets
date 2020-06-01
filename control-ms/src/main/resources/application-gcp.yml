@@ -7,12 +7,16 @@ server:
 spring:
   application:
     name: control-service
+  cloud:
+    loadbalancer:
+      ribbon:
+        enabled: false
 
 broker:
   relay:
     host: ${activemq.host:10.132.0.8}
     user: admin
-    password: ${ARTEMIS_PASSWORD}
+    password:
   url: tcp://${activemq.host:10.132.0.8}:61616
   queue: actions.queue
   topic: actions.topic
