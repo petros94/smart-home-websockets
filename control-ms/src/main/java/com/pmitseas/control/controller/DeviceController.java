@@ -6,7 +6,6 @@ import com.pmitseas.control.event.ActionEvent;
 import com.pmitseas.control.service.SseService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,7 +25,7 @@ public class DeviceController {
 
 	@PostMapping
 	public SseEmitter sendCommandToDevice(@RequestBody ActionDTO actionDTO) {
-		log.info("Received POST request with body: {}", actionDTO.toString());
+		log.info("Received POST request with body: {}", actionDTO);
 
 		/* Create Action event*/
 		ActionEvent event = ActionEvent.builder()

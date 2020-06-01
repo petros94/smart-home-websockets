@@ -24,8 +24,8 @@ public class DeviceMgmtServiceImpl implements DeviceMgmtService {
 
     @Override
     public void handleMessageFromDevice(ResponseMessage message){
-        //Custom logic here
-        log.info("Message Contents: {}", message.toString());
+        // Custom logic here
+        log.info("Message Contents: {}", message);
 
         ActionResultEvent resultEvent = ActionResultEvent.builder()
                 .transactionId(message.getId())

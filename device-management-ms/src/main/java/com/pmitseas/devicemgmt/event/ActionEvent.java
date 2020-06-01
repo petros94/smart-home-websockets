@@ -13,8 +13,8 @@ import java.util.UUID;
 @Builder
 @ToString
 public class ActionEvent implements Serializable {
-     private UUID id;
-     private String destination;
-     private String command;
-     private Map<String, String> args;
+	private UUID id;
+	private String destination;
+	private String command;
+	private Map<String, String> args;
 }

@@ -18,7 +18,6 @@ public class AMQMessagingService {
 	private final JmsTemplate jmsQueueTemplate;
 	private final SseService sseService;
 
-
 	@Value("${broker.queue}")
 	private String actionsQueue;
 

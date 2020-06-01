@@ -7,6 +7,10 @@ server:
 spring:
   application:
     name: device-management-service
+  cloud:
+    loadbalancer:
+      ribbon:
+        enabled: false
 
 broker:
   relay:
@@ -19,7 +23,7 @@ broker:
 
 logging:
   level:
-    org.springframework.messaging: trace
+    org.springframework.messaging: debug
 
 eureka:
   client:
