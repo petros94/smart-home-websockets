@@ -7,11 +7,12 @@ import java.util.Map;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter @Setter
+@Getter
+@Setter
 @Builder
 @ToString
 public class ActionDTO implements Serializable {
-	 private String destination;
-	 private String command;
-	 private Map<String, String> args;
+	private String destination;
+	private String command;
+	private Map<String, String> args;
 }

@@ -1,13 +1,11 @@
 package com.pmitseas.devicemgmt.event;
 
 import com.pmitseas.devicemgmt.service.DeviceMgmtService;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.jms.annotation.JmsListener;
-
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Component;
 
@@ -31,7 +29,7 @@ public class AMQMessagingService {
 
     @JmsListener(destination = "${broker.queue}")
     public void receiveMessage(ActionEvent message) {
-        log.info("Received event from Control MS: {}", message.toString());
+        log.info("Received event from Control MS: {}", message);
         deviceMgmtService.sendMessageToDevice(message);
     }
 

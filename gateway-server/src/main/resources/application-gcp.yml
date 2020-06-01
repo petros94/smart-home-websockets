@@ -1,0 +1,55 @@
+eureka:
+  client:
+    healthcheck:
+      enabled: false
+    serviceUrl:
+      defaultZone: http://${eureka.host:127.0.0.1}:${eureka.port:8761}/eureka/
+  instance:
+    preferIpAddress: true
+
+server:
+  port: 8000
+
+spring:
+  application:
+    name: gateway-server
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: device-management-ms
+          uri: lb://device-management-service
+          predicates:
+            - Path=/device-management-service/**
+          filters:
+            - StripPrefix=1
+        - id: control-ms
+          uri: lb://control-service
+          predicates:
+            - Path=/control-service/**
+          filters:
+            - StripPrefix=1
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: ["*"]
+            allowedMethods: ["*"]
+            allowedHeaders: "*"
+            allowCredentials: true
+    loadbalancer:
+      ribbon:
+        enabled: false
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+  metrics:
+    tags:
+      application: ${spring.application.name}
