@@ -35,6 +35,7 @@ public class WebSocketService {
 
     public void handleMessage(CommandMessage message){
         ResponseMessage response = ResponseMessage.builder()
+                .id(message.getId())
                 .time(LocalDateTime.now().toString())
                 .status("OK")
                 .data("random data".getBytes())
