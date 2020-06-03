@@ -70,6 +70,7 @@ public class LeastConnLoadBalancer implements ReactorServiceInstanceLoadBalancer
 		return supplier.get().collectList().map(this::getInstanceResponse);
 	}
 
+	@Deprecated
 	private Response<ServiceInstance> getInstanceResponse(List<ServiceInstance> instances) {
 		if (instances.isEmpty()) {
 			// log.warn("No servers available for service: " + this.serviceId);
