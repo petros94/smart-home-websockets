@@ -45,7 +45,8 @@ public class LeastConnLoadBalancer implements ReactorServiceInstanceLoadBalancer
 	 *
 	 * @param serviceInstanceListSupplierProvider the ServiceInstanceListSupplier
 	 */
-	public LeastConnLoadBalancer(ObjectProvider<ServiceInstanceListSupplier> serviceInstanceListSupplierProvider, String serviceId, int seedPosition) {
+	public LeastConnLoadBalancer(ObjectProvider<ServiceInstanceListSupplier> serviceInstanceListSupplierProvider, String serviceId,
+			int seedPosition) {
 		this.serviceId = serviceId;
 		this.serviceInstanceListSupplierProvider = serviceInstanceListSupplierProvider;
 		this.position = new AtomicInteger(seedPosition);
@@ -60,17 +61,14 @@ public class LeastConnLoadBalancer implements ReactorServiceInstanceLoadBalancer
 		if (serviceInstanceListSupplierProvider != null) {
 			ServiceInstanceListSupplier supplier = serviceInstanceListSupplierProvider.getIfAvailable(NoopServiceInstanceListSupplier::new);
 			return supplier.get().next()
-					.flatMap(serviceInstances -> Flux
-							.merge(serviceInstances.stream()
-								.map(this::getUsersCount).collect(Collectors.toUnmodifiableList())
-							)
-							.reduce( (instanceUsersCount, instanceUsersCount2) -> instanceUsersCount.getUserCount() < instanceUsersCount2.getUserCount() ? instanceUsersCount : instanceUsersCount2))
+					.flatMap(serviceInstances -> Flux.merge(serviceInstances.stream().map(this::getUsersCount).collect(Collectors.toUnmodifiableList()))
+					.reduce((instanceUsersCount, instanceUsersCount2) ->
+							instanceUsersCount.getUserCount() < instanceUsersCount2.getUserCount() ? instanceUsersCount : instanceUsersCount2))
 					.map(instance -> new DefaultResponse(instance.getServiceInstance()));
 		}
 		ServiceInstanceSupplier supplier = this.serviceInstanceSupplier.getIfAvailable(NoopServiceInstanceSupplier::new);
 		return supplier.get().collectList().map(this::getInstanceResponse);
 	}
-
 
 	private Response<ServiceInstance> getInstanceResponse(List<ServiceInstance> instances) {
 		if (instances.isEmpty()) {
@@ -93,9 +91,9 @@ public class LeastConnLoadBalancer implements ReactorServiceInstanceLoadBalancer
 						log.error("Failed to retrieve number of users for instance {}. Error status {}", serviceInstance.getInstanceId(),
 								clientResponse.statusCode());
 						clientResponse.releaseBody();
-						return Mono.just(new InstanceUsersCount(serviceInstance,Integer.MAX_VALUE));
+						return Mono.just(new InstanceUsersCount(serviceInstance, Integer.MAX_VALUE));
 					} else
-						return clientResponse.bodyToMono(Integer.class).map( response -> new InstanceUsersCount(serviceInstance, response));
+						return clientResponse.bodyToMono(Integer.class).map(response -> new InstanceUsersCount(serviceInstance, response));
 				});
 	}
 
