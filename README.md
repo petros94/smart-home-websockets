@@ -2,7 +2,7 @@
 Websocket client-server example app, with ActiveMQ message broker. 
 This is the code repo for the DZone articles: 
 * Part I: https://dzone.com/articles/full-duplex-scalable-client-server-communication-u
-* Part II: https://dzone.com/articles/full-duplex-scalable-client-server-communication-2 (Pending Approval)
+* Part II: https://dzone.com/articles/full-duplex-scalable-client-server-communication-2
  	
 ## Description 
 In our scenario, all the smart devices have a persistent connection to a server. The server is responsible for sending commands to specific devices, such as turning on the living room lights, or enabling the alarm. It can also receive information from devices. For example there can be a temperature sensor that takes readings every minute, or an oven that sends alerts if the temperature is too high. Finally the server may also issue commands to all devices, such as turn on/off.
@@ -52,6 +52,9 @@ curl --location --request POST 'http://localhost:8000/control-service/device' \
 ```
 
 Then you can monitor the device-client / device-management service logs to see the transmitted messages
+
+## Locust scripts
+To be added soon
 
 ## Contact details
 Feel free to contact us for any questions or suggestions at: kmandalas@gmail.com or submit a github issue.
